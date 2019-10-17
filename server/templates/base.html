@@ -1,0 +1,22 @@
+{{ define "base" }}
+<html>
+    <head>
+        <title>{{block "title" .}} {{end}}</title>
+
+        {{block "style" .}} {{end}}
+    <link rel="stylesheet" href="/static/css/base.css">
+    </head>
+
+    <body>
+            <div class="topnav">
+              <a class="active" href="#home">Test</a>
+              <a href="#news">news</a>
+            </div>
+            {{template "content" .}}
+    </body>
+
+    <footer>{{block "footer" .}} {{end}}</footer>
+    {{block "js" .}} {{end}}
+</html>
+
+{{ end }}
