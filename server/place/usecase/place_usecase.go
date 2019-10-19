@@ -3,9 +3,9 @@ package usecase
 import (
 	"time"
 
-	"github.com/tumachine/place/server/account"
-	"github.com/tumachine/place/server/models"
-	"github.com/tumachine/place/server/place"
+	"github.com/tumachine/redditplace/server/account"
+	"github.com/tumachine/redditplace/server/models"
+	"github.com/tumachine/redditplace/server/place"
 )
 
 type placeUsecase struct {
