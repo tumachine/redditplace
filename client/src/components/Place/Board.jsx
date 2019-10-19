@@ -9,39 +9,39 @@ function Board(props) {
   const ref = useRef(null);
   const [boardBitmap, setBoardBitmap] = useState('');
 
+  const {
+    width, height, colors, socket, color,
+  } = props;
+
   let canvas;
   let ctx;
 
-  let canvasBuffer = new ArrayBuffer(40000);
-  const canvas32 = new Uint32Array(canvasBuffer);
-  const canvas8 = new Uint8ClampedArray(canvasBuffer);
-
-  const colorsBuffer = new ArrayBuffer(10000);
-  const colors8 = new Uint8ClampedArray(colorsBuffer);
-  const colors = [
-    0xFFFFFFFF,
-    0xFFE4E4E4,
-    0xFF888888,
-    0xFF222222,
-    0xFFD1A7FF,
-    0xFF0000E5,
-    0xFF0095E5,
-    0xFF426AA0,
-    0xFF00D9E5,
-    0xFF44E094,
-    0xFF01BE02,
-    0xFFF0E500,
-    0xFFC78300,
-    0xFFEA0000,
-    0xFFFF4AE0,
-    0xFF800082,
-  ];
-
+  const [buffer, setBuffer] = useState(null);
 
   const drawPlace = () => {
-    const imageData = new ImageData(canvas8, 100, 100);
+    canvas = ref.current;
+    ctx = canvas.getContext('2d');
+    canvas.width = width;
+    canvas.height = height;
+    console.log(buffer);
 
-    ctx.putImageData(imageData, 0, 0);
+    if (buffer) {
+      const canvas8 = new Uint8ClampedArray(buffer);
+      const imageData = new ImageData(canvas8, 100, 100);
+      console.log(canvas8);
+
+      ctx.putImageData(imageData, 0, 0);
+      createImageBitmap(imageData).then((imgBitmap) => {
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(imgBitmap, 0, 0, 100, 100, 0, 0, canvas.width, canvas.height);
+      });
+      console.log('Creating place from array');
+    }
+  };
+
+  const placePixel = (x, y) => {
+    const canvas32 = new Uint32Array(buffer);
+    canvas32[x + 100 * y] = colors[color];
   };
 
 
@@ -54,33 +54,59 @@ function Board(props) {
   }, []);
 
   useEffect(() => {
+    socket.connect((msg) => {
+      let pixel = JSON.parse(msg.data).body;
+      pixel = JSON.parse(pixel);
+      console.log('PIXEL: ', pixel);
+
+      placePixel(pixel.x, pixel.y, pixel.color);
+      console.log('Received pixel:');
+      console.log(pixel.x, pixel.y, pixel.color);
+      drawPlace();
+    });
+
+    return () => { socket.disconnect(); };
+  }, []);
+
+  useEffect(() => {
     canvas = ref.current;
-    canvas.width = ctx = canvas.getContext('2d');
+    ctx = canvas.getContext('2d');
+
 
     // buffer of bytes
-    canvasBuffer = new Array(boardBitmap.length);
-    for (let i = 0; i < boardBitmap.length; i += 1) {
-      canvasBuffer[i] = boardBitmap.charCodeAt(i);
-    }
+    if (boardBitmap) {
+      const boardArray = new Array(boardBitmap.length);
+      for (let i = 0; i < boardBitmap.length; i += 1) {
+        boardArray[i] = boardBitmap.charCodeAt(i);
+      }
 
-    // convert every byte to two colors of 4 bits
-    const tempArr = new Uint8ClampedArray(canvasBuffer);
-    for (let i = 0; i < 5000; i += 1) {
-      const colorOne = tempArr[i] >> 4;// eslint-disable-line no-bitwise
-      const colorTwo = tempArr[i] & 0x0F;// eslint-disable-line no-bitwise
+      // convert every byte to two colors of 4 bits
+      const board8 = new Uint8ClampedArray(boardArray);
+      const colors8 = new Uint8ClampedArray(new ArrayBuffer(10000));
+      for (let i = 0; i < 5000; i += 1) {
+        const colorOne = board8[i] >> 4;// eslint-disable-line no-bitwise
+        const colorTwo = board8[i] & 0x0F;// eslint-disable-line no-bitwise
 
-      colors8[i * 2] = colorOne;
-      colors8[i * 2 + 1] = colorTwo;
-    }
+        colors8[i * 2] = colorOne;
+        colors8[i * 2 + 1] = colorTwo;
+      }
 
-    // fill canvas with buffer
-    for (let i = 0; i < 10000; i += 1) {
-      canvas32[i] = colors[colors8[i]];
-    }
+      // fill canvas with buffer
+      const boardBuffer = new ArrayBuffer(40000);
+      const canvas32 = new Uint32Array(boardBuffer);
+      for (let i = 0; i < 10000; i += 1) {
+        canvas32[i] = colors[colors8[i]];
+      }
+      setBuffer(boardBuffer);
 
-    drawPlace();
+      drawPlace();
     // return () => {};
+    }
   }, [boardBitmap]);
+
+  useEffect(() => {
+    drawPlace();
+  }, [width, height]);
 
   const onMouseDown = async ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
@@ -97,10 +123,14 @@ function Board(props) {
     // mouseX = Math.floor(mouseX / scaleX);
     // mouseY = Math.floor(mouseY / scaleY);
 
+    console.log(
+      Math.floor(offsetX / (width / 100)),
+      Math.floor(offsetY / (width / 100)),
+    );
     const res = await apiPost('http://localhost:8080/api/place/draw', {
-      x: offsetX,
-      y: offsetY,
-      color: props.color,
+      x: Math.floor(offsetX / (width / 100)),
+      y: Math.floor(offsetY / (width / 100)),
+      color,
       user_id: 1,
     });
     console.log(res);
