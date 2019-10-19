@@ -2,10 +2,12 @@
 
 class Socket {
   constructor() {
-    this.socket = new WebSocket('ws://localhost:8080/ws');
+    this.socket = null;
+    // this.socket = new WebSocket('ws://localhost:8080/ws');
   }
 
   connect(cb) {
+    this.socket = new WebSocket('ws://localhost:8080/ws');
     console.log('Attempting connection...');
 
     this.socket.onopen = () => {
@@ -23,6 +25,10 @@ class Socket {
     this.socket.onerror = (error) => {
       console.log('Socket Error: ', error);
     };
+  }
+
+  disconnect() {
+    this.socket.close();
   }
 
   sendMsg(msg) {
