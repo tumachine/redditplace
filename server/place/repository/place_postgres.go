@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
-	"github.com/tumachine/place/server/models"
-	"github.com/tumachine/place/server/place"
+	"github.com/tumachine/redditplace/server/models"
+	"github.com/tumachine/redditplace/server/place"
 )
 
 type postgresPlaceRepository struct {

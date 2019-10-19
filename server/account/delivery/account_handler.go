@@ -6,9 +6,9 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/tumachine/place/server/account"
-	"github.com/tumachine/place/server/models"
-	"github.com/tumachine/place/server/utils"
+	"github.com/tumachine/redditplace/server/account"
+	"github.com/tumachine/redditplace/server/models"
+	"github.com/tumachine/redditplace/server/utils"
 )
 
 type AccountHandler struct {

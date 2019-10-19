@@ -1,6 +1,6 @@
 package place
 
-import "github.com/tumachine/place/server/models"
+import "github.com/tumachine/redditplace/server/models"
 
 type Usecase interface {
 	GetPlace() ([]byte, error)

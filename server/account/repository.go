@@ -1,7 +1,7 @@
 package account
 
 import (
-	"github.com/tumachine/place/server/models"
+	"github.com/tumachine/redditplace/server/models"
 )
 
 type Repository interface {

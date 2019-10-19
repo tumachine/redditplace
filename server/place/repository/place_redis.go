@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/go-redis/redis"
-	"github.com/tumachine/place/server/models"
-	"github.com/tumachine/place/server/place"
+	"github.com/tumachine/redditplace/server/models"
+	"github.com/tumachine/redditplace/server/place"
 )
 
 type redisPlaceRepository struct {

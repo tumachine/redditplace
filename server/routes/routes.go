@@ -4,13 +4,13 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	_accountHttp "github.com/tumachine/place/server/account/delivery"
-	_accountRepo "github.com/tumachine/place/server/account/repository"
-	_accountUsecase "github.com/tumachine/place/server/account/usecase"
-	"github.com/tumachine/place/server/database"
-	_placeHttp "github.com/tumachine/place/server/place/delivery"
-	_placeRepo "github.com/tumachine/place/server/place/repository"
-	_placeUsecase "github.com/tumachine/place/server/place/usecase"
+	_accountHttp "github.com/tumachine/redditplace/server/account/delivery"
+	_accountRepo "github.com/tumachine/redditplace/server/account/repository"
+	_accountUsecase "github.com/tumachine/redditplace/server/account/usecase"
+	"github.com/tumachine/redditplace/server/database"
+	_placeHttp "github.com/tumachine/redditplace/server/place/delivery"
+	_placeRepo "github.com/tumachine/redditplace/server/place/repository"
+	_placeUsecase "github.com/tumachine/redditplace/server/place/usecase"
 )
 
 func Handlers() *mux.Router {

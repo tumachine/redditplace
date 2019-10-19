@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/tumachine/place/server/routes"
+	"github.com/tumachine/redditplace/server/routes"
 )
 
 func main() {

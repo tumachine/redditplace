@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/jinzhu/gorm"
-	"github.com/tumachine/place/server/account"
-	"github.com/tumachine/place/server/models"
+	"github.com/tumachine/redditplace/server/account"
+	"github.com/tumachine/redditplace/server/models"
 )
 
 type postgresUserRepository struct {

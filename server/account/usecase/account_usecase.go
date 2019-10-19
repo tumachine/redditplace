@@ -3,8 +3,8 @@ package usecase
 import (
 	"fmt"
 
-	"github.com/tumachine/place/server/account"
-	"github.com/tumachine/place/server/models"
+	"github.com/tumachine/redditplace/server/account"
+	"github.com/tumachine/redditplace/server/models"
 	"golang.org/x/crypto/bcrypt"
 )
 

@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/tumachine/place/server/models"
+	"github.com/tumachine/redditplace/server/models"
 )
 
 type Data map[string]interface{}

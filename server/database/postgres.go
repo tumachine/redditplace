@@ -7,7 +7,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
-	"github.com/tumachine/place/server/models"
+	"github.com/tumachine/redditplace/server/models"
 )
 
 func PostgresConn() (*gorm.DB, error) {

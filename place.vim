@@ -2,18 +2,18 @@ let SessionLoad = 1
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/go/src/github.com/tumachine/place/client/src
+cd ~/go/src/github.com/tumachine/redditplace/client/src
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 ~/go/src/github.com/tumachine/place/server/main.go
+badd +0 ~/go/src/github.com/tumachine/redditplace/server/main.go
 badd +6 App.jsx
 argglobal
 %argdel
 $argadd server/
 set stal=2
-edit ~/go/src/github.com/tumachine/place/server/main.go
+edit ~/go/src/github.com/tumachine/redditplace/server/main.go
 set splitbelow splitright
 wincmd t
 set winminheight=0
