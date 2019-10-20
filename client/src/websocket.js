@@ -7,7 +7,7 @@ class Socket {
   }
 
   connect(cb) {
-    this.socket = new WebSocket('ws://localhost:8080/ws');
+    this.socket = new WebSocket('ws://192.168.0.108:8080/ws');
     console.log('Attempting connection...');
 
     this.socket.onopen = () => {

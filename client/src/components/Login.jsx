@@ -25,7 +25,7 @@ const Login = () => {
     const { email, password, message } = state;
 
     try {
-      const res = await apiPost(`${apiURl}/auth/login`, {
+      const res = await apiPost('/auth/login', {
         email,
         password,
       });

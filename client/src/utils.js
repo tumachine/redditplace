@@ -5,6 +5,8 @@
  * @param {string} hourToExpire
  */
 
+import apiURl from './api';
+
 export const createCookie = (cookieName, cookieValue, hourToExpire) => {
   const date = new Date();
   date.setTime(date.getTime() + hourToExpire * 60 * 60 * 1000);
@@ -15,8 +17,12 @@ export const deleteCookie = (name) => {
   document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
 };
 
+function combineAddress(addr) {
+  return `${apiURl}${addr}`;
+}
+
 export const apiAuthorize = async (address) => {
-  const res = await fetch(address, {
+  const res = await fetch(combineAddress(address), {
     method: 'GET',
     credentials: 'include',
     headers: {
@@ -28,7 +34,7 @@ export const apiAuthorize = async (address) => {
 };
 
 export const apiPost = async (address, object) => {
-  const res = await fetch(address, {
+  const res = await fetch(combineAddress(address), {
     method: 'POST',
     body: JSON.stringify(object),
     credentials: 'include',
@@ -41,9 +47,9 @@ export const apiPost = async (address, object) => {
 };
 
 export const apiGet = async (address) => {
-  const res = await fetch(address, {
+  const res = await fetch(combineAddress(address), {
     method: 'GET',
-    credentials: 'include',
+    // credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },

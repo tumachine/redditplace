@@ -25,7 +25,7 @@ const Register = () => {
 
     const { email, password, username } = state;
     try {
-      const res = await apiPost(`${apiURl}/auth/register`, {
+      const res = await apiPost('/auth/register', {
         email,
         password,
         username,

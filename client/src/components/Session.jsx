@@ -15,7 +15,7 @@ const Session = () => {
   const getUserInfo = async () => {
     setState({ ...state, isFetching: true, message: 'fetching details...' });
     try {
-      const res = await apiAuthorize(`${apiURl}/auth/session`);
+      const res = await apiAuthorize('/auth/session');
 
       if (!res.success) {
         history.push('/login');
