@@ -27,30 +27,31 @@ function Board(props) {
     ctx = canvas.getContext('2d');
     canvas.width = width;
     canvas.height = height;
-    console.log(buffer);
 
-    const arr8 = new Uint8ClampedArray(buffer.data);
-    const imageData = new ImageData(arr8, 100, 100);
-    // console.log(buffer);
+    if (buffer) {
+      const arr8 = new Uint8ClampedArray(buffer.data);
+      const imageData = new ImageData(arr8, 100, 100);
+      // console.log(buffer);
 
-    ctx.putImageData(imageData, 0, 0);
-    createImageBitmap(imageData).then((imgBitmap) => {
-      ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(imgBitmap, 0, 0, 100, 100, 0, 0, canvas.width, canvas.height);
-    });
-    console.log('Creating place from array');
-    // }
+      ctx.putImageData(imageData, 0, 0);
+      createImageBitmap(imageData).then((imgBitmap) => {
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(imgBitmap, 0, 0, 100, 100, 0, 0, canvas.width, canvas.height);
+      });
+      console.log('Creating place from array');
+      // }
+    }
   };
 
   useEffect(() => {
-    if (!buffer.loading) {
+    if (!buffer?.loading) {
       drawPlace();
     }
   }, [buffer]);
 
 
   useEffect(() => {
-    if (!buffer.loading) {
+    if (!buffer?.loading) {
       drawPlace();
     }
   }, [width, height]);

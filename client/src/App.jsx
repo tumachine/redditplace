@@ -1,4 +1,5 @@
 import React from 'react';
+import "@babel/polyfill";
 import { Route, NavLink, HashRouter } from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';

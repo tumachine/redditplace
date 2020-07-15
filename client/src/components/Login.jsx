@@ -20,6 +20,7 @@ const Login = () => {
   };
 
   const handleSubmit = async () => {
+    console.log(state);
     setState({ ...state, isSubmitting: true });
 
     const { email, password, message } = state;

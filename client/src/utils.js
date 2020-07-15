@@ -1,10 +1,3 @@
-// create a named cookie
-/**
- * @param {sring} cookieName
- * @param {string} cookieValue //token
- * @param {string} hourToExpire
- */
-
 import apiURl from './api';
 
 export const createCookie = (cookieName, cookieValue, hourToExpire) => {
