@@ -1,0 +1,56 @@
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+body, html, #root {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.canvas {
+    canvas {
+        display: block;
+    }
+    width: 80%;
+    height: 100%;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    width: 20%;
+    &__buttoncolors {
+        margin: 10%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+
+        &__button {
+            width: 30px;
+            height: 30px;
+            margin: 10px;
+
+            &--active {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    }
+
+    &__places {
+        width: 100%;
+    }
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+
+    display: flex;
+}
